@@ -1,8 +1,8 @@
-## Interface: 70000
+## Interface: 80000
 ## Title: MerchantFilterButtons
 ## Notes: Changes the Merchant Frame item filter drop down menu into buttons.
 ## Author: Suicidal Katt
-## Version: 3
+## Version: 4.0.0
 ## SavedVariablesPerCharacter: MFB_DB
 
 MerchantFilterButtons.lua
