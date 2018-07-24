@@ -46,15 +46,15 @@ local function BuildButtons()
 		}
 	}
 
-	local numSpecs = GetNumSpecializations();
+	local numSpecs = GetNumSpecializations()
 	for i = 1, numSpecs do
-		local arg1, name, arg3, icon = GetSpecializationInfo(i);
+		local arg1, name, arg3, icon = GetSpecializationInfo(i)
 		Buttons["SPEC"..i] = {}
-		Buttons["SPEC"..i].text = name;
-		Buttons["SPEC"..i].texture = icon;
-		Buttons["SPEC"..i].filter = LE_LOOT_FILTER_SPEC1 + i - 1;
-		Buttons["SPEC"..i].coord = {0.1,0.9,0.1,0.9};
-		Buttons["SPEC"..i].x = (-(spacing)*(i+2))-10;
+		Buttons["SPEC"..i].text = name
+		Buttons["SPEC"..i].texture = icon
+		Buttons["SPEC"..i].filter = LE_LOOT_FILTER_SPEC1 + i - 1
+		Buttons["SPEC"..i].coord = {0.1,0.9,0.1,0.9}
+		Buttons["SPEC"..i].x = (-(spacing)*(i+2))-10
 	end
 	
 	SetPushed = function(Filter)
@@ -80,24 +80,27 @@ local function BuildButtons()
 	for k,v in pairs(Buttons) do
 		local button = CreateFrame("Button","MFB_"..k,MerchantFrame,"MainMenuBarMicroButton")
 		button.text = v.text
-		button:SetPoint("TOPRIGHT",MerchantFrame,"TOPRIGHT",v.x,-4)
+		button:SetPoint("TOPRIGHT",MerchantFrame,"TOPRIGHT",v.x,-10)
+		button:SetSize(28,50)
 		button:SetScript("OnEnter",function()
 			GameTooltip:SetOwner(button, "ANCHOR_RIGHT")
-			GameTooltip:AddLine("Merchant Filter");
-			GameTooltip:AddLine(v.text);
-			GameTooltip:Show();
+			GameTooltip:AddLine("Merchant Filter")
+			GameTooltip:AddLine(v.text)
+			GameTooltip:Show()
 		end)
 		button:SetScript("OnLeave",function()
-			GameTooltip:Hide();
+			GameTooltip:Hide()
 		end)
-		button:SetNormalTexture("Interface\\Buttons\\UI-MicroButtonCharacter-Up");
-		button:SetPushedTexture("Interface\\Buttons\\UI-MicroButtonCharacter-Down");
-		button:SetHighlightTexture("Interface\\Buttons\\UI-MicroButton-Hilight");
+		button:SetNormalTexture("Interface\\Buttons\\UI-MicroButtonCharacter-Up")
+		button:SetPushedTexture("Interface\\Buttons\\UI-MicroButtonCharacter-Down")
+		button:SetHighlightTexture("Interface\\Buttons\\UI-MicroButton-Hilight")
 		button.overlay = button:CreateTexture("MFB_"..k.."_Overlay","OVERLAY")
 		button.overlay:SetSize(18,20)
-		button.overlay:SetPoint("TOP",button,"TOP",0,(-30-(v.y or 0)))
+		button.overlay:SetPoint("TOP",button,"TOP",0,(-24-(v.y or 0)))
 		button.overlay:SetTexture(v.texture)
 		button.overlay:SetTexCoord(unpack(v.coord))
+		button.Flash:SetPoint("TOPLEFT",button,"TOPLEFT",-2,-16)
+		button.Flash:SetHeight(36)
 		button.Flash.flasher = button.Flash:CreateAnimationGroup()
 		local fade1 = button.Flash.flasher:CreateAnimation("Alpha")
 		fade1:SetDuration(0.5)
@@ -112,7 +115,7 @@ local function BuildButtons()
 		button:SetScript("OnClick",function(self,button)
 			MerchantFrame_SetFilter(MerchantFrame,v.filter)
 			MFB_DB.filter = GetMerchantFilter()
-			PlaySound("SPELLBOOKCHANGEPAGE")
+			PlaySound(829)
 			SetPushed(GetMerchantFilter())			
 		end)
 	end
